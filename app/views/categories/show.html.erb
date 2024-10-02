@@ -1,17 +1,35 @@
-<h1> <%= @category.name %> </h1>
+<% if @category.photo.attached? %>
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= cl_image_path(@category.photo.key) %>);">
+    <h1> <%= @category.name %> </h1>
+  </div>
+<% else %>
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= asset_path('ban.jpeg') %>);">
+    <h1> <%= @category.name %> </h1>
+  </div>
+<% end %>
 
-<%= link_to "Add a Recipe", new_category_bookmark_path(@category) %>
 
-<h2>Recipes:</h2>
-<ul>
-  <% @category.bookmarks.each do |bookmark| %>
-  <li>
-    <h4><%= bookmark.recipe.name %> </h4>
-    <p><%= bookmark.comment %></p>
-    <p>rating: <%= bookmark.recipe.rating %></p>
-    <%= link_to "delete", bookmark_path(bookmark), data:{ turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-  </li>
-  <% end %>
+<%# <div> %>
+    <%# <h1> <%= @category.name </h1>  %>
+<%# </div> %>
 
-<%= link_to "Back", categories_path %>
+<div class="container">
+
+  <div class="categories-card">
+    <h2>Recipes:</h2>
+    <%= link_to "Add a Recipe", new_category_bookmark_path(@category) %>
+  <div>
+
+  <div class="cards-grid">
+    <% @category.bookmarks.each do |bookmark| %>
+      <div class="cards-info">
+        <h4><%= bookmark.recipe.name %> </h4>
+        <p><%= bookmark.comment %></p>
+        <p>rating: <%= bookmark.recipe.rating %></p>
+        <%= link_to "delete", bookmark_path(bookmark), data:{ turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      </div>
+    <% end %>
+  </div>
+</div>
 <%# recipe_path(bookmark.recipe) %>
+<%# <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg" %>

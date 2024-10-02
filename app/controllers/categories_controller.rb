@@ -27,7 +27,7 @@ class CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name, :photo)
   end
 end
 # - For categories, **these are the things a user can do:**
